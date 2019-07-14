@@ -1,0 +1,57 @@
+# Boot strap YAML 
+---
+spring:
+  application:
+    name: api-jva-task-management
+  profiles:
+    active:
+    - ${ENV:dev}
+  main:
+    banner-mode: 'off'
+    allow-bean-definition-overriding: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      # To be updated in real production usage!
+      ddl-auto: create
+    show-sql: true
+    generate-ddl: true
+
+
+# Server/service default values.server:
+server:
+  port: ${APP_PORT:8080}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: ${ADMIN_PORT:8081}
+
+logging:
+  path: /var/log
+  level:
+    root: info
+    com.demo.api: debug
+
+exchange-config:
+  url: ${LB_URL:http://www.lb.lt/webservices/FxRates/FxRates.asmx/getCurrentFxRates?tp=EU}
+                
+                
+    
+
+  
